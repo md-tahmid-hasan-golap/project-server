@@ -31,15 +31,6 @@ async function run() {
     const ShareGardenTipColloction = client.db("ShareGardenTipDB").collection("ShareGardenTip")
     
 
-app.get('/myTips', async (req, res) => {
-  const userEmail = req.query.email;
-  if (!userEmail) {
-    return res.status(400).send({ error: 'Email is required' });
-  }
-  const query = { email: userEmail };
-  const result = await ShareGardenTipColloction.find(query).toArray();
-  res.send(result);
-});
 
 
 
