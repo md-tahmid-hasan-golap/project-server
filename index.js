@@ -27,10 +27,49 @@ async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
+    const activeGargenrsCollection = client.db("activeGardenrDB").collection("activeGargenrs")
+    const ShareGardenTipColloction = client.db("ShareGardenTipDB").collection("ShareGardenTip")
+    
+
+    app.get('/activeGargenrs', async (req, res) => {
+  const show = req.query.show; // e.g. /activeGargenrs?show=all
+   if (show === "all") {
+    const result = await activeGargenrsCollection.find().toArray();
+    res.send(result);
+   } else {
+    const query = { status: "Active" };
+    const result = await activeGargenrsCollection.find(query).limit(6).toArray();
+    res.send(result);
+   }
+ });
 
 
 
 
+app.get('/activeGargenrs', async (req, res) => {
+  const query = { status: "Active" }; // Capital A
+  const result = await activeGargenrsCollection.find(query).limit(6).toArray();
+  res.send(result);
+});
+
+app.get('/ShareGardenTip', async(req,res) => {
+  const result = await ShareGardenTipColloction.find().toArray()
+  res.send(result)
+})
+
+
+
+    app.post('/activeGargenrs', async(req,res) => {
+      const newGardener = req.body;
+      const result = await activeGargenrsCollection.insertOne(newGardener)
+      res.send(result)
+    })
+
+     app.post('/ShareGardenTip', async(req,res) => {
+      const newShareGardenTip = req.body;
+      const result = await ShareGardenTipColloction.insertOne(newShareGardenTip)
+      res.send(result)
+     })
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
