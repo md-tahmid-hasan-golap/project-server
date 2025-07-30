@@ -52,6 +52,17 @@ app.get('/activeGargenrs', async (req, res) => {
   res.send(result);
 });
 
+
+app.get('/ShareGardenTipHome', async(req,res) => {
+  const result = await ShareGardenTipColloction.find().limit(6).toArray();
+  res.send(result);
+});
+
+
+
+
+
+
 app.get('/ShareGardenTip', async(req,res) => {
   const result = await ShareGardenTipColloction.find().toArray()
   res.send(result)
