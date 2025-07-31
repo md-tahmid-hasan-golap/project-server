@@ -31,6 +31,13 @@ async function run() {
     const ShareGardenTipColloction = client.db("ShareGardenTipDB").collection("ShareGardenTip")
     
 
+app.get('/myTips', async (req,res) => {
+  const result = await ShareGardenTipColloction.find().toArray()
+  res.send(result)
+})
+
+
+
 
 
 
