@@ -25,7 +25,7 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    // Connect the client to the server	(optional starting in v4.7)
+    /// Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     const activeGargenrsCollection = client.db("activeGardenrDB").collection("activeGargenrs")
     const ShareGardenTipColloction = client.db("ShareGardenTipDB").collection("ShareGardenTip")
