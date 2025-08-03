@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config()
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -31,15 +31,28 @@ async function run() {
     const ShareGardenTipColloction = client.db("ShareGardenTipDB").collection("ShareGardenTip")
     
 
-app.get('/myTips', async (req,res) => {
-  const result = await ShareGardenTipColloction.find().toArray()
+// app.get('/myTips', async (req,res) => {
+//   const result = await ShareGardenTipColloction.find().toArray()
+//   res.send(result)
+// })
+
+
+
+
+
+app.delete('/ShareGardenTip/:id', async(req,res) => {
+  const id = req.params.id
+  const rueary = {_id: new ObjectId(id)}
+  const result = await ShareGardenTipColloction.deleteOne(rueary)
   res.send(result)
 })
 
-
-
-
-
+app.get('/ShareGardenTip/:id', async(req,res) => {
+  const id = req.params.id
+  const rueary = {_id: new ObjectId(id)}
+  const result = await ShareGardenTipColloction.findOne(rueary)
+  res.send(result)
+})
 
     app.get('/activeGargenrs', async (req, res) => {
   const show = req.query.show; // e.g. /activeGargenrs?show=all
