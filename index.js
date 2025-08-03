@@ -31,14 +31,20 @@ async function run() {
     const ShareGardenTipColloction = client.db("ShareGardenTipDB").collection("ShareGardenTip")
     
 
-// app.get('/myTips', async (req,res) => {
-//   const result = await ShareGardenTipColloction.find().toArray()
-//   res.send(result)
-// })
 
+ app.put('/ShareGardenTip/:id', async (req, res) => {
+  const id = req.params.id;
+  const filter = { _id: new ObjectId(id) };
+  const options = { upsert: true };
+  const updateCoffee = req.body;
 
+  const updateDoc = {
+    $set: updateCoffee
+  };
 
-
+  const result = await ShareGardenTipColloction.updateOne(filter, updateDoc, options);
+  res.send(result);
+});
 
 app.delete('/ShareGardenTip/:id', async(req,res) => {
   const id = req.params.id
