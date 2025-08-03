@@ -1,6 +1,7 @@
+require('dotenv').config()
 const express = require('express');
 const cors = require('cors');
-require('dotenv').config()
+
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const app = express();
 const port = process.env.PORT || 3000;
@@ -26,8 +27,8 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     /// Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
-    const activeGargenrsCollection = client.db("activeGardenrDB").collection("activeGargenrs")
+    // await client.connect();
+    const activeGargenrsCollection = client.db("ShareGardenTipDB").collection("activeGargenrs")
     const ShareGardenTipColloction = client.db("ShareGardenTipDB").collection("ShareGardenTip")
     
 
@@ -60,16 +61,10 @@ app.get('/ShareGardenTip/:id', async(req,res) => {
   res.send(result)
 })
 
-    app.get('/activeGargenrs', async (req, res) => {
-  const show = req.query.show; // e.g. /activeGargenrs?show=all
-   if (show === "all") {
-    const result = await activeGargenrsCollection.find().toArray();
-    res.send(result);
-   } else {
-    const query = { status: "Active" };
-    const result = await activeGargenrsCollection.find(query).limit(6).toArray();
-    res.send(result);
-   }
+    app.get('/activeGargenrss', async (req, res) => {
+     
+     const result = await activeGargenrsCollection.find().toArray()
+     res.send(result)
  });
 
 
